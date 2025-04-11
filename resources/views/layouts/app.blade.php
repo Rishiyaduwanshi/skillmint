@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Training Center Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
@@ -17,9 +18,17 @@
                 </div>
                 <div class="hidden md:flex space-x-6">
                     <a href="/" class="hover:text-cyan-400 transition-colors">Home</a>
-                    <a href="{{route('courses.index')}}" class="hover:text-cyan-400 transition-colors">Courses</a>
-                    <a href="#" class="hover:text-cyan-400 transition-colors">About</a>
-                    <a href="#" class="hover:text-cyan-400 transition-colors">Contact</a>
+                    <a href="{{ route('courses.index') }}" class="hover:text-cyan-400 transition-colors">Courses</a>
+                    @auth
+                        <a href="#" class="hover:text-cyan-400 transition-colors">My Courses</a>
+                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                            @csrf
+                            <button type="submit" class="hover:text-cyan-400 transition-colors">Logout</button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="hover:text-cyan-400 transition-colors">Login</a>
+                        <a href="{{ route('register') }}" class="hover:text-cyan-400 transition-colors">Register</a>
+                    @endauth
                 </div>
             </div>
         </div>
