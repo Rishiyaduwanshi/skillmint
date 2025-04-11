@@ -4,7 +4,7 @@
 <div class="container mx-auto px-6 py-8">
     <!-- Hero Section -->
     <div class="text-center mb-12">
-        <h1 class="text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Welcome to Training Center</h1>
+        <h1 class="text-5xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Welcome to SkillMint</h1>
         <p class="text-gray-400 text-lg">Empowering minds through quality education and training</p>
     </div>
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Training Center Management</title>
+    <title>SkillMint</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
     <!-- Add Toastr CSS and JS -->
@@ -19,7 +19,7 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-                    <a href="/">Training Center</a>
+                    <a href="/">SkillMint</a>
                 </div>
                 <div class="hidden md:flex space-x-6">
                     <a href="/" class="hover:text-cyan-400 transition-colors">Home</a>
@@ -56,7 +56,7 @@
     <footer class="bg-slate-800 border-t border-slate-700 mt-12">
         <div class="container mx-auto px-6 py-4">
             <div class="text-center text-gray-400">
-                <p>&copy; {{ date('Y') }} Training Center Management. All rights reserved.</p>
+                <p>&copy; {{ date('Y') }} SkillMint. All rights reserved.</p>
             </div>
         </div>
     </footer>
