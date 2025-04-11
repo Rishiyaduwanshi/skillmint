@@ -5,27 +5,41 @@
     <div class="max-w-md mx-auto bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-8">
         <h2 class="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Register</h2>
         
+        @if ($errors->any())
+            <div class="mb-4 p-4 bg-red-500/10 border border-red-500 rounded-lg">
+                <ul class="list-disc list-inside text-red-500">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form method="POST" action="{{ route('register') }}" class="space-y-6">
             @csrf
             
             <div>
                 <label for="name" class="block text-gray-300 mb-2">Name</label>
-                <input type="text" name="name" id="name" class="w-full bg-slate-900 text-gray-300 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
+                <input type="text" name="name" id="name" value="{{ old('name') }}" required 
+                    class="w-full bg-slate-900 text-gray-300 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
             </div>
 
             <div>
                 <label for="email" class="block text-gray-300 mb-2">Email</label>
-                <input type="email" name="email" id="email" class="w-full bg-slate-900 text-gray-300 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
+                <input type="email" name="email" id="email" value="{{ old('email') }}" required 
+                    class="w-full bg-slate-900 text-gray-300 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
             </div>
 
             <div>
                 <label for="password" class="block text-gray-300 mb-2">Password</label>
-                <input type="password" name="password" id="password" class="w-full bg-slate-900 text-gray-300 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
+                <input type="password" name="password" id="password" required 
+                    class="w-full bg-slate-900 text-gray-300 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
             </div>
 
             <div>
                 <label for="password_confirmation" class="block text-gray-300 mb-2">Confirm Password</label>
-                <input type="password" name="password_confirmation" id="password_confirmation" class="w-full bg-slate-900 text-gray-300 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
+                <input type="password" name="password_confirmation" id="password_confirmation" required 
+                    class="w-full bg-slate-900 text-gray-300 border border-slate-600 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
             </div>
 
             <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-all">

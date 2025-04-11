@@ -7,6 +7,11 @@
     <title>Training Center Management</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="{{ asset('css/global.css') }}" rel="stylesheet">
+    <!-- Add Toastr CSS and JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="{{ asset('js/utils/toastr-config.js') }}"></script>
 </head>
 <body class="bg-slate-900 text-gray-100">
     <!-- Navigation -->
@@ -21,9 +26,12 @@
                     <a href="{{ route('courses.index') }}" class="hover:text-cyan-400 transition-colors">Courses</a>
                     @auth
                         <a href="#" class="hover:text-cyan-400 transition-colors">My Courses</a>
-                        <form method="POST" action="{{ route('logout') }}" class="inline">
+                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
+                            class="hover:text-cyan-400 transition-colors cursor-pointer">
+                            Logout
+                        </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                             @csrf
-                            <button type="submit" class="hover:text-cyan-400 transition-colors">Logout</button>
                         </form>
                     @else
                         <a href="{{ route('login') }}" class="hover:text-cyan-400 transition-colors">Login</a>
@@ -33,6 +41,13 @@
             </div>
         </div>
     </nav>
+
+    <!-- Replace Flash Messages with Toastr -->
+    @if(session('success'))
+        <script>
+            initToastr("{{ session('success') }}", "success");
+        </script>
+    @endif
 
     <main>
         @yield('content')
