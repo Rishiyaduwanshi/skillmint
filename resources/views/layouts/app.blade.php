@@ -13,11 +13,11 @@
         <div class="container mx-auto px-6 py-4">
             <div class="flex items-center justify-between">
                 <div class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-                    Training Center
+                    <a href="/">Training Center</a>
                 </div>
                 <div class="hidden md:flex space-x-6">
                     <a href="/" class="hover:text-cyan-400 transition-colors">Home</a>
-                    <a href="#" class="hover:text-cyan-400 transition-colors">Courses</a>
+                    <a href="{{route('courses.index')}}" class="hover:text-cyan-400 transition-colors">Courses</a>
                     <a href="#" class="hover:text-cyan-400 transition-colors">About</a>
                     <a href="#" class="hover:text-cyan-400 transition-colors">Contact</a>
                 </div>

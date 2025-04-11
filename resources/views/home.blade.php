@@ -44,7 +44,7 @@
         <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 mb-4">Ready to Start Learning?</h2>
         <p class="text-gray-400 mb-6">Browse our courses and begin your journey towards success.</p>
         <button class="bg-gradient-to-r from-cyan-500 to-emerald-500 text-white px-8 py-3 rounded-lg hover:opacity-90 transition-all transform hover:-translate-y-1">
-            View Courses
+            <a href="{{ route('courses.index') }}">View Courses</a>
         </button>
     </div>
 </div>
