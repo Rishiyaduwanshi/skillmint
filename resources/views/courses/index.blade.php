@@ -46,8 +46,11 @@
                     <p><span class="text-cyan-400">Level:</span> {{ $course['level'] }}</p>
                     <p><span class="text-cyan-400">Price:</span> {{ $course['price'] }}</p>
                 </div>
+                <!-- In the course card, update the button to: -->
                 <button class="mt-6 w-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-all">
-                    Enroll Now
+                    <a href="{{ route('courses.show', ['id' => 1]) }}">View Details</a>
+                </button>
+                Enroll Now
                 </button>
             </div>
         </div>
