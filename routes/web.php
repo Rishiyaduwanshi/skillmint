@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CertificateController;
+
 
 // Existing routes
 Route::get('/', function () {
@@ -35,3 +37,5 @@ Route::get('/admin/dashboard', function (){
     return view('admin.dashboard');
 });
 
+Route::get('/cert/{id}', [CertificateController::class, 'show'])
+->name('certificate.show');
