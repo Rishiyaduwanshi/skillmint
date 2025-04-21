@@ -26,7 +26,12 @@ Route::middleware('auth')->group(function () {
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
 
-// Dashboard route
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// // Admin routes
+// Route::middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+// });
+
+Route::get('/admin/dashboard', function (){
+    return view('admin.dashboard');
+});
+
