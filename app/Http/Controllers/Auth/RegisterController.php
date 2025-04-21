@@ -26,6 +26,7 @@ class RegisterController extends Controller
         $user = User::create([
             'name' => $validated['name'],
             'email' => $validated['email'],
+            'role' => 'student',
             'password' => Hash::make($validated['password']),
         ]);
 
@@ -33,4 +34,5 @@ class RegisterController extends Controller
 
         return redirect('/courses')->with('success', 'Registration successful!');
     }
+
 }

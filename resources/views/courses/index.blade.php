@@ -40,14 +40,14 @@
                 </svg>
             </div>
             <div class="p-6">
-                <h3 class="text-xl font-semibold text-gray-100 mb-3">{{ $course['title'] }}</h3>
+                <h3 class="text-xl font-semibold text-gray-100 mb-3">{{ $course->title }}</h3> <!-- Use object syntax -->
                 <div class="space-y-2 text-gray-400">
-                    <p><span class="text-cyan-400">Duration:</span> {{ $course['duration'] }}</p>
-                    <p><span class="text-cyan-400">Level:</span> {{ $course['level'] }}</p>
-                    <p><span class="text-cyan-400">Price:</span> {{ $course['price'] }}</p>
+                    <p><span class="text-cyan-400">Duration:</span> {{ $course->duration }}</p> <!-- Use object syntax -->
+                    <p><span class="text-cyan-400">Level:</span> {{ $course->level }}</p> <!-- Use object syntax -->
+                    <p><span class="text-cyan-400">Price:</span> {{ $course->price }}</p> <!-- Use object syntax -->
                 </div>
                 <button class="mt-6 w-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-all">
-                    <a href="{{ route('courses.show', ['id' => 1]) }}">View Details</a>
+                    <a href="{{ route('courses.show', ['id' => $course->id]) }}">View Details</a> <!-- Use dynamic id -->
                 </button>
             </div>
         </div>

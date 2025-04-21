@@ -3,62 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB; // DB facade ko use kar rahe hain
 
 class CourseController extends Controller
 {
     public function index()
     {
-        // Temporary data (later we'll fetch from database)
-        $courses = [
-            [
-                'title' => 'Web Development Fundamentals',
-                'duration' => '12 weeks',
-                'level' => 'Beginner',
-                'price' => '$299'
-            ],
-            [
-                'title' => 'Advanced Data Science',
-                'duration' => '16 weeks',
-                'level' => 'Advanced',
-                'price' => '$499'
-            ],
-            [
-                'title' => 'Mobile App Development',
-                'duration' => '10 weeks',
-                'level' => 'Intermediate',
-                'price' => '$399'
-            ],
-        ];
+        // DB se sab active courses fetch kar rahe hain
+        $courses = DB::table('courses')->where('is_active', 1)->get();
 
         return view('courses.index', compact('courses'));
     }
 
     public function show($id)
     {
-        // Temporary data (will be replaced with database later)
-        $course = [
-            'id' => $id,
-            'title' => 'Web Development Fundamentals',
-            'duration' => '12 weeks',
-            'level' => 'Beginner',
-            'price' => '$299',
-            'description' => 'Learn the fundamentals of web development including HTML, CSS, and JavaScript. This course is perfect for beginners who want to start their journey in web development.',
-            'instructor' => 'John Doe',
-            'schedule' => 'Monday and Wednesday, 6:00 PM - 8:00 PM',
-            'topics' => [
-                'HTML5 Basics',
-                'CSS3 Styling',
-                'JavaScript Fundamentals',
-                'Responsive Design',
-                'Basic Backend Concepts',
-                'Project Deployment'
-            ],
-            'requirements' => [
-                'Basic computer knowledge',
-                'Laptop with internet connection',
-                'Text editor (VS Code recommended)'
-            ]
-        ];
+        // Specific course ko DB se fetch kar rahe hain
+        $course = DB::table('courses')->where('id', $id)->first();
+
+        // Agar course nahi milta to 404 dikhana
+        if (!$course) {
+            abort(404);
+        }
+
+        // Topics aur Requirements ko JSON se decode kar rahe hain
+        $course->topics = json_decode($course->topics, true);
+        $course->requirements = json_decode($course->requirements, true);
 
         return view('courses.show', compact('course'));
     }
