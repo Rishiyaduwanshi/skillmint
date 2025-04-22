@@ -3,9 +3,11 @@
 <div class="container mx-auto px-6 py-8">
     <!-- Welcome Section -->
     <div class="bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-8 mb-8">
-        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 text-right py-2">
+            @if(Auth::user())
             Welcome, {{ Auth::user()->name }}!
-        </h2>
+            @endif
+        </h2
     </div>
 
     <!-- Stats Grid -->

@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CertificateController;
+use App\Http\Middleware\AdminMiddleware;
 
 
 // Existing routes
@@ -35,7 +36,7 @@ Route::post('/register', [RegisterController::class, 'register']);
 
 Route::get('/admin/dashboard', function (){
     return view('admin.dashboard');
-});
+})->name('adminDashboard')->middleware(AdminMiddleware::class);
 
 Route::get('/cert/{id}', [CertificateController::class, 'show'])
 ->name('certificate.show');
