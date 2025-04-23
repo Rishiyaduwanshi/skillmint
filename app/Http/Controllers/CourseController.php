@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB; // DB facade ko use kar rahe hain
+use DB; 
 
 class CourseController extends Controller
 {
@@ -30,5 +30,9 @@ class CourseController extends Controller
         $course->requirements = json_decode($course->requirements, true);
 
         return view('courses.show', compact('course'));
+    }
+
+    public function createCourse(){
+        
     }
 }

@@ -21,7 +21,7 @@
                 </div>
                 <div class="ml-4">
                     <h3 class="text-xl font-semibold text-gray-100">Total Courses</h3>
-                    <p class="text-2xl font-bold text-cyan-400">stats</p>
+                    <p class="text-2xl font-bold text-cyan-400">{{$courseCount ?? 'N/A' }}</p>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="ml-4">
                     <h3 class="text-xl font-semibold text-gray-100">Total Students</h3>
-                    <p class="text-2xl font-bold text-emerald-400">102</p>
+                    <p class="text-2xl font-bold text-emerald-400">{{$studentCount ?? 'N/A'}}</p>
                 </div>
             </div>
         </div>

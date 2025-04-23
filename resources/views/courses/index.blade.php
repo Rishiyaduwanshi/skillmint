@@ -46,9 +46,10 @@
                     <p><span class="text-cyan-400">Level:</span> {{ $course->level }}</p> <!-- Use object syntax -->
                     <p><span class="text-cyan-400">Price:</span> {{ $course->price }}</p> <!-- Use object syntax -->
                 </div>
-                <button class="mt-6 w-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-all">
-                    <a href="{{ route('courses.show', ['id' => $course->id]) }}">View Details</a> <!-- Use dynamic id -->
-                </button>
+                <a href="{{ route('courses.show', ['id' => $course->id]) }}"
+                class="mt-6 w-full inline-block text-center bg-gradient-to-r from-cyan-500 to-emerald-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition-all">
+                View Details
+                </a>
             </div>
         </div>
         @endforeach
