@@ -6,7 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CertificateController;
 use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\chechAdmin;
+use App\Http\Middleware\checkAdmin;
 use App\Http\Controllers\adminDashboardController;
 
 
@@ -16,12 +16,13 @@ Route::get('/', function () {
 });
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
-Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
-Route::middleware('checkAdmin')->group(function () {
-    Route::post('/courses', [CourseController::class, 'createCourse']);
-    Route::patch('/courses/{id}/', [CourseController::class, 'editCourse']);
-    Route::delete('/courses/{id}', [CourseController::class, 'deleteCourse']);
+Route::middleware(checkAdmin::class)->group(function () {
+    Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
+    Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
+    Route::patch('/courses/{id}', [CourseController::class, 'update'])->name('courses.update');
+    Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
 });
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 
 // Auth routes
 Route::get('/login', [LoginController::class, 'show'])->name('login');
@@ -35,11 +36,6 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
-
-// // Admin routes
-// Route::middleware(['auth', 'admin'])->group(function () {
-//     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
-// });
 
 Route::get('/admin/dashboard',[adminDashboardController::class, 'index'])
 ->name('adminDashboard')

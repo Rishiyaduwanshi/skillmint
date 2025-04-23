@@ -13,6 +13,7 @@ class adminDashboardController extends Controller
         return view('admin.dashboard', [
             'courseCount' => Course::count(),
             'studentCount' => User::where('role', 'user')->count(),
+           'courses' => Course::all(),
         ]);
     }
 }

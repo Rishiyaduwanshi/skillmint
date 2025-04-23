@@ -108,7 +108,7 @@
                     Course Management
                 </h3>
                 <button class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600">
-                    Add Course
+                    <a href="{{ route('courses.create') }}">Add Course</a>
                 </button>
             </div>
             <div class="overflow-x-auto">
@@ -122,15 +122,20 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($courses as $course)
                         <tr class="border-b border-slate-700">
-                            <td class="py-3">Web Development</td>
-                            <td>Jane Smith</td>
-                            <td>8 weeks</td>
+                            <td class="py-3">{{$course->title}}</td>
+                            <td>{{$course->instructor}}</td>
+                            <td>{{$course->duration}}</td>
                             <td class="space-x-2">
-                                <button class="text-cyan-400 hover:text-cyan-300">Edit</button>
+                                <button class="text-cyan-400 hover:text-cyan-300">
+                                <i> </i>    
+                                Edit
+                                </button>
                                 <button class="text-red-400 hover:text-red-300">Delete</button>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

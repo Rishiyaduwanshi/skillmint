@@ -12,6 +12,12 @@
 
     <!-- Course Header -->
     <div class="bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-8 mb-8">
+        @if($course->image)
+            <div class="mb-6">
+                <img src="{{ asset('storage/' . $course->image) }}" alt="{{ $course->title }}" 
+                    class="w-full max-h-[500px] object-contain rounded-lg">
+            </div>
+        @endif
         <h1 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 mb-4">
             {{ $course->title }} <!-- Use object syntax -->
         </h1>
