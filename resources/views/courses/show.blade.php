@@ -98,12 +98,11 @@
             </div>
 
             <!-- Replace the existing button with this -->
-            <form action="{{ route('courses.enroll', $course->id) }}" method="POST">
-                @csrf
-                <button type="submit" class="w-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-white px-6 py-3 rounded-lg hover:opacity-90 transition-all transform hover:-translate-y-1">
-                    Enroll Now
-                </button>
-            </form>
+            <!-- Replace the existing enroll form with this -->
+            <a href="{{ route('payments.show', $course->id) }}" 
+               class="w-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-white px-6 py-3 rounded-lg hover:opacity-90 transition-all transform hover:-translate-y-1 inline-block text-center">
+                Enroll Now (₹{{ $course->price }})
+            </a>
         </div>
     </div>
 </div>

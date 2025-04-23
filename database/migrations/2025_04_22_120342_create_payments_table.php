@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('course_id')->constrained('courses')->onDelete('cascade');
-            $table->decimal('amount', 5, 2);
+            $table->decimal('amount', 10, 2);
             $table->enum('payment_method', ['Credit card', 'Bank transfer', 'UPI', 'COD', 'Manual']);
             $table->string('upload_receipt')->nullable(); 
-            $table->enum('status', ['Pending', 'Successful', 'Failed'])->default('Pending');
+            $table->enum('status', ['Pending', 'Successful', 'Failed', 'Approved', 'Rejected'])->default('Pending');
             $table->string('transaction_id')->nullable();
             $table->timestamps();
         });

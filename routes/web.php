@@ -9,6 +9,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\checkAdmin;
 use App\Http\Controllers\adminDashboardController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\PaymentController;
 
 
 // Existing routes
@@ -36,6 +37,8 @@ Route::middleware('auth')->group(function () {
     });
     Route::post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
     Route::get('/my-enrollments', [EnrollmentController::class, 'myEnrollments'])->name('my.enrollments');
+    Route::get('/courses/{id}/payment', [PaymentController::class, 'show'])->name('payments.show');
+    Route::post('/courses/{id}/payment', [PaymentController::class, 'store'])->name('payments.store');
 });
 
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
@@ -47,3 +50,9 @@ Route::get('/admin/dashboard',[adminDashboardController::class, 'index'])
 
 Route::get('/cert/{id}', [CertificateController::class, 'show'])
 ->name('certificate.show');
+
+// Add these routes in the admin middleware group
+Route::middleware(checkAdmin::class)->group(function () {
+    Route::post('/admin/payments/{payment}/approve', [PaymentController::class, 'approve'])->name('admin.payments.approve');
+    Route::post('/admin/payments/{payment}/reject', [PaymentController::class, 'reject'])->name('admin.payments.reject');
+});

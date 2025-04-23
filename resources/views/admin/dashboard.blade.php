@@ -49,7 +49,7 @@
                 </div>
                 <div class="ml-4">
                     <h3 class="text-xl font-semibold text-gray-100">Pending Enrollments</h3>
-                    <p class="text-2xl font-bold text-yellow-400">502</p>
+                    <p class="text-2xl font-bold text-yellow-400">{{$pendingPaymentsCount}}</p>
                 </div>
             </div>
         </div>
@@ -72,9 +72,10 @@
     <!-- Management Sections -->
     <div class="grid md:grid-cols-2 gap-8">
         <!-- Pending Enrollments -->
+        <!-- Replace the Pending Enrollments section with this -->
         <div class="bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-6">
             <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-                Pending Enrollments
+                Pending Payments
             </h3>
             <div class="overflow-x-auto">
                 <table class="w-full text-gray-400">
@@ -82,20 +83,45 @@
                         <tr class="text-left border-b border-slate-700">
                             <th class="pb-3">Student</th>
                             <th class="pb-3">Course</th>
-                            <th class="pb-3">Payment</th>
+                            <th class="pb-3">Amount</th>
+                            <th class="pb-3">Receipt</th>
                             <th class="pb-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @forelse ($pendingPayments as $payment)
                         <tr class="border-b border-slate-700">
-                            <td class="py-3">John Doe</td>
-                            <td>Web Development</td>
-                            <td><a href="#" class="text-cyan-400">View</a></td>
+                            <td class="py-3">{{ $payment->user->name }}</td>
+                            <td>{{ $payment->course->title }}</td>
+                            <td>₹{{ $payment->amount }}</td>
+                            <td>
+                                <a href="{{ asset('storage/' . $payment->upload_receipt) }}" 
+                                   target="_blank" 
+                                   class="text-cyan-400 hover:text-cyan-300">
+                                    View Receipt
+                                </a>
+                            </td>
                             <td class="space-x-2">
-                                <button class="text-emerald-400 hover:text-emerald-300">Approve</button>
-                                <button class="text-red-400 hover:text-red-300">Reject</button>
+                                <form action="{{ route('admin.payments.approve', $payment->id) }}" method="POST" class="inline-flex items-center gap-2">
+                                    @csrf
+                                    <input type="text" 
+                                           name="transaction_id" 
+                                           placeholder="Enter Transaction ID" 
+                                           class="bg-slate-900 border border-slate-600 rounded px-2 py-1 text-sm" 
+                                           required>
+                                    <button type="submit" class="text-emerald-400 hover:text-emerald-300">Verify & Approve</button>
+                                </form>
+                                <form action="{{ route('admin.payments.reject', $payment->id) }}" method="POST" class="inline ml-2">
+                                    @csrf
+                                    <button type="submit" class="text-red-400 hover:text-red-300">Reject</button>
+                                </form>
                             </td>
                         </tr>
+                        @empty
+                        <tr>
+                            <td colspan="5" class="py-4 text-center text-gray-500">No pending payments</td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>
