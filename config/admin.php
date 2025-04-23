@@ -49,4 +49,20 @@ return [
     'default_language' => env('APP_LANG', 'en'),
     'currency' => env('APP_CURRENCY', 'INR'),
 
+
+        /*
+    |--------------------------------------------------------------------------
+    | Payment Information
+    |--------------------------------------------------------------------------
+    */
+    'payment_gateway' => env('PAYMENT_GATEWAY', 'stripe'),
+    'stripe_key' => env('STRIPE_KEY', 'pk_test_your_stripe_key'),
+    'stripe_secret' => env('STRIPE_SECRET', 'sk_test_your_stripe_secret'),
+    'upi_id' => env('UPI_ID', 'Enter UPI ID'),
+    'account_holder' => env('ACCOUNT_HOLDER', 'Admin'),
+    'upi_QR_code' => env('UPI_QR_CODE', 'payment/qrCode.jpg'),
+    'ifsc_code' => env('IFSC_CODE', 'Enter your IFSC Code'),
+    'bank_name' => env('BANK_NAME','Enter your Bank name'),
+    'account_number' => env('ACCOUNT_NUMBER', 'Enter your bank account number')
+
 ];

@@ -8,6 +8,7 @@ use App\Http\Controllers\CertificateController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\checkAdmin;
 use App\Http\Controllers\adminDashboardController;
+use App\Http\Controllers\EnrollmentController;
 
 
 // Existing routes
@@ -27,11 +28,14 @@ Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.sh
 // Auth routes
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
+// Add these routes in the auth middleware group
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/logout', function() {
         return redirect()->back();
     });
+    Route::post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
+    Route::get('/my-enrollments', [EnrollmentController::class, 'myEnrollments'])->name('my.enrollments');
 });
 
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
