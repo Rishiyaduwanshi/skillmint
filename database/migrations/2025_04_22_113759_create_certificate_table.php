@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('certificates', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained('users'); 
-            $table->foreignId('course_id')->constrained('courses'); 
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('course_id')->constrained('courses')->onDelete('cascade'); 
             $table->decimal('percentage', 5, 2)->nullable(); 
             $table->enum('status', ['Pending', 'Issued', 'Revoked']);
-            $table->foreignId('generated_by')->constrained('users'); 
+            $table->foreignId('generated_by')->constrained('users')->onDelete('cascade');
             $table->string('certificate_link')->nullable();
             $table->timestamps(); 
         });
