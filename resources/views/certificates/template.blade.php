@@ -105,7 +105,7 @@
         <div class="certificate-id">Certificate ID: {{ $certificate->id }}</div>
         <div class="verify-link">
             Verify this certificate at: 
-            {{ url("/verify-certificate/{$certificate->id}") }}
+            {{ url($certificate->certificate_link) }}
         </div>
     </div>
 </body>

@@ -19,11 +19,19 @@ Route::get('/', function () {
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::middleware(checkAdmin::class)->group(function () {
+    // courses routes
     Route::get('/courses/create', [CourseController::class, 'create'])->name('courses.create');
     Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
     Route::patch('/courses/{id}', [CourseController::class, 'update'])->name('courses.update');
     Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
+
+    // certificate routes
+    Route::get('/certificates/create', [CertificateController::class, 'create'])->name('certificates.create');
+    Route::post('/certificates', [CertificateController::class, 'store'])->name('certificates.store');
+    Route::patch('/certificates/{id}', [CertificateController::class, 'update'])->name('certificates.update');
+    Route::delete('/certificates/{id}', [CertificateController::class, 'destroy'])->name('certificates.destroy');
 });
+Route::get('/certificates/{id}', [CertificateController::class, 'show'])->name('certificates.show');
 Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 
 // Auth routes
@@ -50,8 +58,6 @@ Route::get('/admin/dashboard',[adminDashboardController::class, 'index'])
 ->name('adminDashboard')
 ->middleware(AdminMiddleware::class);
 
-Route::get('/cert/{id}', [CertificateController::class, 'show'])
-->name('certificate.show');
 
 Route::middleware(checkAdmin::class)->group(function () {
     Route::post('/admin/payments/{payment}/approve', [PaymentController::class, 'approve'])->name('admin.payments.approve');

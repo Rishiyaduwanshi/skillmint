@@ -61,7 +61,7 @@
                 </div>
                 <div class="ml-4">
                     <h3 class="text-xl font-semibold text-gray-100">Certificates Issued</h3>
-                    <p class="text-2xl font-bold text-purple-400">0</p>
+                    <p class="text-2xl font-bold text-purple-400">{{$certificates->count()}}</p>
                 </div>
             </div>
         </div>
@@ -135,7 +135,11 @@
                                 <i> </i>    
                                 Edit
                                 </button>
-                                <button class="text-red-400 hover:text-red-300">Delete</button>
+                                <form action="{{ route('courses.destroy', $course->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this course?');">
+                                    @csrf
+                                    @method('DELETE')
+                                        <button type="submit" class="text-red-400 hover:text-red-300">Delete</button>
+                                </form>
                             </td>
                         </tr>
                         @endforeach
@@ -162,19 +166,15 @@
                             <th class="pb-3">Student Name</th>
                             <th class="pb-3">Course</th>
                             <th class="pb-3">Enrollment Date</th>
-                            <th class="pb-3">Progress</th>
                             <th class="pb-3">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                       {{-- @foreach ($students as $student) --}}
+                        @foreach ($courseEnrollments as $enrollment) 
                         <tr class="border-b border-slate-700">
-                           {{-- <td class="py-3">{{$student->name}}</td> --}} 
-                           {{-- <td>{{$student->course->title}}</td>   --}}
-                           {{-- <td>{{$student->enrollment_date}}</td> --}} 
-                            <td class="py-3">Saksham Agarwal</td>
-                            <td>Web Development</td>
-                            <td>12-12-2024</td>
+                            <td class="py-3">{{$enrollment->user->name}}</td>
+                            <td>{{$enrollment->course->title}}</td>
+                            <td>{{$enrollment->created_at}}</td> 
                             <td class="space-x-2">
                                 <button class="text-emerald-400 hover:text-emerald-300">
                                 <i> </i>    
@@ -183,7 +183,7 @@
                                 <button class="text-red-400 hover:text-red-300">Delete</button>
                             </td>
                         </tr>
-                       {{-- @endforeach --}} 
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -259,9 +259,10 @@
                         <option>Oldest First</option>
                     </select>
                 </div>
-                <button class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:opacity-90">
+                <a href="{{ route('certificates.create') }}" 
+                   class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:opacity-90">
                     Create Certificate
-                </button>
+                </a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-gray-400">
@@ -275,20 +276,25 @@
                         </tr>
                     </thead>
                     <tbody>
-                    {{--   @foreach ($certificates as $certificate) --}}
+                        @foreach ($certificates as $certificate)
                         <tr class="border-b border-slate-700">
-                        {{--     <td class="py-3">{{$certificate->name}}</td> --}}
-                         {{--    <td>{{$certificate->course->title}}</td> --}}
-                        {{--     <td>{{$certificate->issue_date}}</td>  --}}
+                            <td class="py-3">{{$certificate->student->name}}</td>
+                            <td>{{$certificate->course->title}}</td>
+                            <td>{{$certificate->created_at->format('Y-m-d')}}</td>
+                            <td>{{$certificate->id}}</td>
                             <td class="space-x-2">
-                                <button class="text-purple-400 hover:text-purple-300">
-                                <i> </i>    
-                                Edit
-                                </button>
-                                <button class="text-red-400 hover:text-red-300">Delete</button>
+                                <a href="{{ route('certificates.show', $certificate->id) }}" 
+                                   class="text-purple-400 hover:text-purple-300">
+                                    View
+                                </a>
+                                <form action="{{ route('certificates.destroy', $certificate->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this certificate?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-400 hover:text-red-300">Delete</button>
+                                </form>
                             </td>
                         </tr>
-                      {{--   @endforeach --}}
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -297,8 +303,5 @@
 </div>
 </div>
 
-<!-- Main Management Tabs -->
-
-<!-- Add Alpine.js for tab functionality -->
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endsection

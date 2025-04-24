@@ -15,11 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained('users'); 
             $table->foreignId('course_id')->constrained('courses'); 
-            $table->date('issued_date'); 
             $table->decimal('percentage', 5, 2)->nullable(); 
             $table->enum('status', ['Pending', 'Issued', 'Revoked']);
             $table->foreignId('generated_by')->constrained('users'); 
-            $table->boolean('validity')->default(true);
             $table->string('certificate_link')->nullable();
             $table->timestamps(); 
         });

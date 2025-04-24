@@ -83,7 +83,8 @@
                         Dashboard
                     </a>
                 @else
-                    <a href="{{ route('userDashbaord') }}" 
+                    {{-- <a href="{{ route('userDashbaord') }}"  --}}
+                    <a href="/" 
                        class="block text-gray-300 hover:text-white hover:bg-slate-700 px-3 py-2 rounded-md text-base font-medium">
                         Dashbaord
                     </a>

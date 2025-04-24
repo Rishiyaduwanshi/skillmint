@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\Models\Course; // Missing Course model import
+use App\Models\Course; 
 
 class CourseController extends Controller
 {
@@ -31,7 +31,7 @@ class CourseController extends Controller
         return view('courses.show', compact('course'));
     }
 
-    public function create()  // Missing create method
+    public function create()  
     {
         return view('admin.courses.create');
     }
@@ -51,14 +51,11 @@ class CourseController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
     
-        // Handle image upload
         $imagePath = $request->file('image')->store('courses', 'public');
     
-        // Convert topics and requirements from textarea to JSON
         $topics = array_filter(explode("\n", $request->topics ?? ''));
         $requirements = array_filter(explode("\n", $request->requirements ?? ''));
     
-        // Create course using DB facade since we're using it elsewhere
         DB::table('courses')->insert([
             'title' => $request->title,
             'description' => $request->description,
@@ -80,4 +77,11 @@ class CourseController extends Controller
     }
 
     // Remove createCourse method as it's not used
+    public function destroy($id)
+    {
+        $course = Course::findOrFail($id);
+        $course->delete();
+        DB::table('courses')->where('id', $id)->delete();
+        return back()->with('success', 'Course with ID '.$course->id.' deleted successfully!');
+    }
 }
