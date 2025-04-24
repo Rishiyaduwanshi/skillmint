@@ -25,9 +25,9 @@
                                 Dashboard
                             </a>
                         @else
-                            <a href="{{ route('my.enrollments') }}" 
+                            <a href="{{ route('userDashboard') }}" 
                                class="text-gray-300 hover:text-white hover:bg-slate-700 px-3 py-2 rounded-md text-sm font-medium transition-all">
-                                My Courses
+                                Dashboard
                             </a>
                         @endif
                     @endauth
@@ -83,9 +83,9 @@
                         Dashboard
                     </a>
                 @else
-                    <a href="{{ route('my.enrollments') }}" 
+                    <a href="{{ route('userDashbaord') }}" 
                        class="block text-gray-300 hover:text-white hover:bg-slate-700 px-3 py-2 rounded-md text-base font-medium">
-                        My Courses
+                        Dashbaord
                     </a>
                 @endif
 

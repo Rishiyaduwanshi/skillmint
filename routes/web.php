@@ -35,9 +35,8 @@ Route::middleware('auth')->group(function () {
         return redirect()->back();
     });
     Route::get('/dashboard', function () {
-        
         return view('dashboard');
-    })->name('dashboard');
+    })->name('userDashboard');
     Route::post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
     Route::get('/my-enrollments', [EnrollmentController::class, 'myEnrollments'])->name('my.enrollments');
     Route::get('/courses/{id}/payment', [PaymentController::class, 'show'])->name('payments.show');

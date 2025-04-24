@@ -1,17 +1,15 @@
 @extends('layouts.app')
 @section('content')
-<div class="container mx-auto px-6 py-8">
+<div class="container mx-auto px-4 py-8">
     <!-- Welcome Section -->
-    <div class="bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-8 mb-8">
-        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 text-right py-2">
-            @if(Auth::user())
+    <div class="bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-6 mb-8">
+        <h2 class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 text-right">
             Welcome, {{ Auth::user()->name }}!
-            @endif
-        </h2
+        </h2>
     </div>
 
-    <!-- Stats Grid -->
-    <div class="grid md:grid-cols-4 gap-6 mb-8">
+    <!-- Quick Stats -->
+    <div class="grid md:grid-cols-4 gap-4 mb-8">
         <div class="bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-6">
             <div class="flex items-center">
                 <div class="p-3 rounded-full bg-cyan-400/10 text-cyan-400">
@@ -58,84 +56,63 @@
             <div class="flex items-center">
                 <div class="p-3 rounded-full bg-purple-400/10 text-purple-400">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
                 </div>
                 <div class="ml-4">
                     <h3 class="text-xl font-semibold text-gray-100">Certificates Issued</h3>
-                    <p class="text-2xl font-bold text-purple-400">45</p>
+                    <p class="text-2xl font-bold text-purple-400">0</p>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Management Sections -->
-    <div class="grid md:grid-cols-2 gap-8">
-        <!-- Pending Enrollments -->
-        <!-- Replace the Pending Enrollments section with this -->
-        <div class="bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-6">
-            <h3 class="text-xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-                Pending Payments
-            </h3>
-            <div class="overflow-x-auto">
-                <table class="w-full text-gray-400">
-                    <thead>
-                        <tr class="text-left border-b border-slate-700">
-                            <th class="pb-3">Student</th>
-                            <th class="pb-3">Course</th>
-                            <th class="pb-3">Amount</th>
-                            <th class="pb-3">Receipt</th>
-                            <th class="pb-3">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($pendingPayments as $payment)
-                        <tr class="border-b border-slate-700">
-                            <td class="py-3">{{ $payment->user->name }}</td>
-                            <td>{{ $payment->course->title }}</td>
-                            <td>₹{{ $payment->amount }}</td>
-                            <td>
-                                <a href="{{ asset('storage/' . $payment->upload_receipt) }}" 
-                                   target="_blank" 
-                                   class="text-cyan-400 hover:text-cyan-300">
-                                    View Receipt
-                                </a>
-                            </td>
-                            <td class="space-x-2">
-                                <form action="{{ route('admin.payments.approve', $payment->id) }}" method="POST" class="inline-flex items-center gap-2">
-                                    @csrf
-                                    <input type="text" 
-                                           name="transaction_id" 
-                                           placeholder="Enter Transaction ID" 
-                                           class="bg-slate-900 border border-slate-600 rounded px-2 py-1 text-sm" 
-                                           required>
-                                    <button type="submit" class="text-emerald-400 hover:text-emerald-300">Verify & Approve</button>
-                                </form>
-                                <form action="{{ route('admin.payments.reject', $payment->id) }}" method="POST" class="inline ml-2">
-                                    @csrf
-                                    <button type="submit" class="text-red-400 hover:text-red-300">Reject</button>
-                                </form>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="5" class="py-4 text-center text-gray-500">No pending payments</td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
 
-        <!-- Course Management -->
-        <div class="bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">
-                    Course Management
-                </h3>
-                <button class="bg-cyan-500 text-white px-4 py-2 rounded-lg hover:bg-cyan-600">
-                    <a href="{{ route('courses.create') }}">Add Course</a>
-                </button>
+    <div x-data="{ activeTab: 'courses' }" class="bg-slate-800 rounded-lg shadow-lg border border-slate-700 p-6">
+    <!-- Tab Navigation -->
+    <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-700">
+        <button @click="activeTab = 'courses'" 
+                :class="{ 'border-cyan-400 text-cyan-400': activeTab === 'courses' }"
+                class="px-4 py-2 font-medium border-b-2 border-transparent hover:text-cyan-400 transition-all">
+            Courses
+        </button>
+        <button @click="activeTab = 'students'" 
+                :class="{ 'border-emerald-400 text-emerald-400': activeTab === 'students' }"
+                class="px-4 py-2 font-medium border-b-2 border-transparent hover:text-emerald-400 transition-all">
+            Students
+        </button>
+        <button @click="activeTab = 'payments'" 
+                :class="{ 'border-yellow-400 text-yellow-400': activeTab === 'payments' }"
+                class="px-4 py-2 font-medium border-b-2 border-transparent hover:text-yellow-400 transition-all">
+            Payments
+        </button>
+        <button @click="activeTab = 'certificates'" 
+                :class="{ 'border-purple-400 text-purple-400': activeTab === 'certificates' }"
+                class="px-4 py-2 font-medium border-b-2 border-transparent hover:text-purple-400 transition-all">
+            Certificates
+        </button>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="overflow-hidden">
+        <!-- Courses Tab -->
+        <div x-show="activeTab === 'courses'" class="space-y-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <input type="text" placeholder="Search courses..." 
+                           class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
+                    <select class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-cyan-400">
+                        <option>All Levels</option>
+                        <option>Beginner</option>
+                        <option>Intermediate</option>
+                        <option>Advanced</option>
+                    </select>
+                </div>
+                <a href="{{ route('courses.create') }}" 
+                   class="bg-gradient-to-r from-cyan-500 to-emerald-500 text-white px-4 py-2 rounded-lg hover:opacity-90">
+                    Add Course
+                </a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-gray-400">
@@ -166,6 +143,162 @@
                 </table>
             </div>
         </div>
+
+        <!-- Students Tab -->
+        <div x-show="activeTab === 'students'" class="space-y-6">
+            <div class="flex items-center space-x-4">
+                <input type="text" placeholder="Search students..." 
+                       class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-emerald-400">
+                <select class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-emerald-400">
+                    <option>All Courses</option>
+                    <option>Active Students</option>
+                    <option>Completed</option>
+                </select>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-gray-400">
+                    <thead>
+                        <tr class="text-left border-b border-slate-700">
+                            <th class="pb-3">Student Name</th>
+                            <th class="pb-3">Course</th>
+                            <th class="pb-3">Enrollment Date</th>
+                            <th class="pb-3">Progress</th>
+                            <th class="pb-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       {{-- @foreach ($students as $student) --}}
+                        <tr class="border-b border-slate-700">
+                           {{-- <td class="py-3">{{$student->name}}</td> --}} 
+                           {{-- <td>{{$student->course->title}}</td>   --}}
+                           {{-- <td>{{$student->enrollment_date}}</td> --}} 
+                            <td class="py-3">Saksham Agarwal</td>
+                            <td>Web Development</td>
+                            <td>12-12-2024</td>
+                            <td class="space-x-2">
+                                <button class="text-emerald-400 hover:text-emerald-300">
+                                <i> </i>    
+                                Edit
+                                </button>
+                                <button class="text-red-400 hover:text-red-300">Delete</button>
+                            </td>
+                        </tr>
+                       {{-- @endforeach --}} 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Payments Tab -->
+        <div x-show="activeTab === 'payments'" class="space-y-6">
+            <div class="flex items-center space-x-4">
+                <input type="text" placeholder="Search payments..." 
+                       class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-400">
+                <select class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-yellow-400">
+                    <option>All Status</option>
+                    <option>Pending</option>
+                    <option>Approved</option>
+                    <option>Rejected</option>
+                </select>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-gray-400">
+                    <thead>
+                        <tr class="text-left border-b border-slate-700">
+                            <th class="pb-3">Student</th>
+                            <th class="pb-3">Course</th>
+                            <th class="pb-3">Amount</th>
+                            <th class="pb-3">Receipt</th>
+                            <th class="pb-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       @foreach ($pendingPayments as $payment)
+                        <tr class="border-b border-slate-700">
+                        <td class="py-3">{{ $payment->user->name }}</td> 
+                        <td>{{ $payment->course->title }}</td>
+                        <td>₹{{ $payment->amount }}</td> 
+                            <td>
+                                <a href="{{ asset('storage/' . $payment->upload_receipt) }}" 
+                                   target="_blank" 
+                                   class="text-cyan-400 hover:text-cyan-300">
+                                    View Receipt
+                                </a>
+                            </td>
+                            <td class="space-x-2">
+                                <form action="{{ route('admin.payments.approve', $payment->id) }}" method="POST" class="inline-flex items-center gap-2">
+                                    @csrf
+                                    <input type="text" 
+                                           name="transaction_id" 
+                                           placeholder="Enter Transaction ID" 
+                                           class="bg-slate-900 border border-slate-600 rounded px-2 py-1 text-sm" 
+                                           required>
+                                    <button type="submit" class="text-emerald-400 hover:text-emerald-300">Verify & Approve</button>
+                                </form>
+                                <form action="{{ route('admin.payments.reject', $payment->id) }}" method="POST" class="inline ml-2">
+                                    @csrf
+                                    <button type="submit" class="text-red-400 hover:text-red-300">Reject</button>
+                                </form>
+                            </td>
+                        </tr>
+                      @endforeach 
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Certificates Tab -->
+        <div x-show="activeTab === 'certificates'" class="space-y-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <input type="text" placeholder="Search certificates..." 
+                           class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-400">
+                    <select class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 focus:outline-none focus:border-purple-400">
+                        <option>All Courses</option>
+                        <option>Recent First</option>
+                        <option>Oldest First</option>
+                    </select>
+                </div>
+                <button class="bg-gradient-to-r from-purple-500 to-indigo-500 text-white px-4 py-2 rounded-lg hover:opacity-90">
+                    Create Certificate
+                </button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-gray-400">
+                    <thead>
+                        <tr class="text-left border-b border-slate-700">
+                            <th class="pb-3">Student</th>
+                            <th class="pb-3">Course</th>
+                            <th class="pb-3">Issue Date</th>
+                            <th class="pb-3">Certificate ID</th>
+                            <th class="pb-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {{--   @foreach ($certificates as $certificate) --}}
+                        <tr class="border-b border-slate-700">
+                        {{--     <td class="py-3">{{$certificate->name}}</td> --}}
+                         {{--    <td>{{$certificate->course->title}}</td> --}}
+                        {{--     <td>{{$certificate->issue_date}}</td>  --}}
+                            <td class="space-x-2">
+                                <button class="text-purple-400 hover:text-purple-300">
+                                <i> </i>    
+                                Edit
+                                </button>
+                                <button class="text-red-400 hover:text-red-300">Delete</button>
+                            </td>
+                        </tr>
+                      {{--   @endforeach --}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
+</div>
+
+<!-- Main Management Tabs -->
+
+<!-- Add Alpine.js for tab functionality -->
+<script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 @endsection
