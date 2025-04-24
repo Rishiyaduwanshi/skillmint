@@ -15,7 +15,7 @@ use App\Http\Controllers\PaymentController;
 // Existing routes
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::get('/courses', [CourseController::class, 'index'])->name('courses.index');
 Route::middleware(checkAdmin::class)->group(function () {
@@ -29,12 +29,15 @@ Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.sh
 // Auth routes
 Route::get('/login', [LoginController::class, 'show'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-// Add these routes in the auth middleware group
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     Route::get('/logout', function() {
         return redirect()->back();
     });
+    Route::get('/dashboard', function () {
+        
+        return view('dashboard');
+    })->name('dashboard');
     Route::post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
     Route::get('/my-enrollments', [EnrollmentController::class, 'myEnrollments'])->name('my.enrollments');
     Route::get('/courses/{id}/payment', [PaymentController::class, 'show'])->name('payments.show');
@@ -51,7 +54,6 @@ Route::get('/admin/dashboard',[adminDashboardController::class, 'index'])
 Route::get('/cert/{id}', [CertificateController::class, 'show'])
 ->name('certificate.show');
 
-// Add these routes in the admin middleware group
 Route::middleware(checkAdmin::class)->group(function () {
     Route::post('/admin/payments/{payment}/approve', [PaymentController::class, 'approve'])->name('admin.payments.approve');
     Route::post('/admin/payments/{payment}/reject', [PaymentController::class, 'reject'])->name('admin.payments.reject');
