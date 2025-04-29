@@ -48,13 +48,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/dashboard',[userDashboardController::class,'index'])->name('userDashboard');
     Route::post('/courses/{id}/enroll', [EnrollmentController::class, 'enroll'])->name('courses.enroll');
-    Route::get('/my-enrollments', [EnrollmentController::class, 'myEnrollments'])->name('my.enrollments');
     
-    Route::post('/profile/update', [userDashboardController::class, 'updateProfile'])->name('user.profile.update');
-    Route::get('/my-courses', [userDashboardController::class, 'myCourses'])->name('user.courses');
     Route::get('/certificates', [userDashboardController::class, 'viewCertificates'])->name('user.certificates');
     Route::get('/payments', [userDashboardController::class, 'viewPayments'])->name('user.payments');
-    Route::get('/course/{courseId}/progress', [userDashboardController::class, 'courseProgress'])->name('user.course.progress');
 });
 Route::get('/register', [RegisterController::class, 'show'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
