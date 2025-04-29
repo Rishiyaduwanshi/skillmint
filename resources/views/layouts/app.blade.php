@@ -24,6 +24,12 @@
         </script>
     @endif
 
+    @if(session('error'))
+    <script>
+        initToastr("{{ session('error') }}", "error");
+    </script>
+    @endif
+
     {{-- Page Content --}}
     <main>
         @yield('content')

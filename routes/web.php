@@ -13,7 +13,6 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\userDashboardController;
 
 
-// Existing routes
 Route::get('/', function () {
     return view('home');
 })->name('home');

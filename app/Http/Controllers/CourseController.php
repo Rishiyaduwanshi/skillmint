@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\QueryException;
 use DB;
 use App\Models\Course; 
 
@@ -76,12 +77,21 @@ class CourseController extends Controller
             ->with('success', 'Course created successfully!');
     }
 
-    // Remove createCourse method as it's not used
+
+
     public function destroy($id)
     {
-        $course = Course::findOrFail($id);
-        $course->delete();
-        DB::table('courses')->where('id', $id)->delete();
-        return back()->with('success', 'Course with ID '.$course->id.' deleted successfully!');
+        try {
+            $course = Course::findOrFail($id);
+            $course->delete();
+    
+            return back()->with('success', 'Course with ID '.$course->id.' deleted successfully!');
+        } catch (QueryException $e) {
+            if ($e->getCode() == '23000') {
+                return back()->with('error', 'Cannot delete this course because it has linked certificates.');
+            }
+    
+            return back()->with('error', 'Something went wrong while deleting the course.');
+        }
     }
 }
